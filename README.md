@@ -1,4 +1,4 @@
-# Práctica 2 Base de Datos 
+# Práctica 3 Base de Datos 
 ## Colaboradores
 * **Nombre:** Brenda Roa Venegas 
 * **Boleta:** 2025630789
