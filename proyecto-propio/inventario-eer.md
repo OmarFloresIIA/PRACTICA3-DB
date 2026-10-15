@@ -1,4 +1,4 @@
-# Inventario del Model Entidad Relación Extendido
+# Inventario del Modelo Entidad Relación Extendido
 ## Entidades Fuertes
 + CLIENTE:
     + Clave primaria: **numeroCliente**
