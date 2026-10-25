@@ -8,15 +8,85 @@ nulos."
 
 + producto (1:1) - detalle (0:N) 
 
+|       | **Producto**            |   |
+|-------|-------------------|---------|
+| PK    | claveProducto     |  |
+|       | costoUnitarioUSD  |  |
+|       | precioUnitarioUSD | |
+
+
+|       | **Detalle**            |   |
+|-------|-------------------|---------|
+| PK    | folio    |  |
+| PK      | claveParcial  |  |
+| FK    | claveProducto | 
+
+---
+
 + pedido (1:1) - detalle (1:N)
+
+|       | **Pedido**            |   |
+|-------|-------------------|---------|
+| PK    | folio   |  |
+| FK      | numeroCliente |  |
+|       | estatus| |
+| | dia
+| | mes
+| | año
+
+---
 
 + cliente (1:1) - pedido (0:N)
 
+|       | **Cliente**            |   |
+|-------|-------------------|---------|
+| PK    | numeroCliente     |  |
+|       | razonSocial  |  |
+|       | correoCliente | |
+| | telefonoCliente
+
+--- 
+
 + cliente (1:1) - sucursal (1:N)
+
+|       | **Sucursal**            |   |
+|-------|-------------------|---------|
+| PK, FK   | numeroCliente     |  |
+| PK      | claveSucursal  |  |
+|       | nombrePlanta| |
+| |telefonoEncargado|
+| |CP|
+| | calle
+| |pais|
+|| estado
+||numero
+||ciudad
+
+---
 
 + sucursal (1:1) - envio (0:N)
 
+
+|       | **Envio**            |   |
+|-------|-------------------|---------|
+| PK    | numeroGuia    |  |
+| FK1,UK| folio   |  |
+| FK2   | claveTransportista | |
+|FK3| numeroCliente
+||costoFlete
+||dia
+||mes
+||año
+---
+
 + envio (0:M) - transportista (1:1)
+
+|       | **Transportista**            |   |
+|-------|-------------------|---------|
+| PK    | claveTransportista    |  |
+|       | nombreEmpresa  |  |
+|       | telefonoAtencion | |
+|| email
 
 
 
@@ -31,25 +101,95 @@ NOT NULL.
 
 + cliente (1:1) - clienteNacional (0:1)
 
+|       | **ClienteNacional**            |   |
+|-------|-------------------|---------|
+| PK, FK    | numeroCliente     |  |
+|       | RFC  |  |
+|       | regimenFiscal | |
+| | estadoOrigen
+
+---
+
 + cliente (1:1) - clienteExportacion (0:1)
+
+|       | **ClienteExportacion**            |   |
+|-------|-------------------|---------|
+| PK, FK    | numeroCliente     |  |
+|       | idFiscalGlobal |  |
+|       | paisReceptor | |
+
+---
+
+
 
 + transportista (1:1) - transportistaNacional (0:1)
 
+|       | **TransportistaNacional**            |   |
+|-------|-------------------|---------|
+| PK, FK    | claveTransportista   |  |
+|       | RFC  |  |
+
+
+---
+
+
 + transportista (1:1) - transportistaInternacional(0:1)
+
+|       | **TransportistaInternacional**            |   |
+|-------|-------------------|---------|
+| PK, FK    | claveTransportista     |  |
+|       | codigoAduanal|  |
+|       | agenciaAduanal | |
+
+---
 
 + producto (1:1) - omnigold (0:1)
 
+|       | **Omnigold**            |   |
+|-------|-------------------|---------|
+| PK, FK    | claveProducto     |  |
+|       | provMaquinaria |  |
+|       | 
+
+----
+
 + producto (1:1) - hyvolt (0:1)
 
+|       | **Hyvolt**            |   |
+|-------|-------------------|---------|
+| PK, FK    | claveProducto     |  |
+|       | provTransformador  |  |
+|       | 
+
+---
+
 + prodcuto (1:1) - hyprene (0:1)
+
+|       | **Hyprene**            |   |
+|-------|-------------------|---------|
+| PK, FK    | claveProducto     |  |
+|       | provTransporte   |  |
+|       | 
+
 
 ## Relaciones de ORDEN SUPERIOR
 
 "Regla 7. Relaciones de orden superior. Las relaciones ternarias o mayores se transforman en una tabla propia
 que incluye las claves primarias de todas las entidades participantes, más los atributos propios de la relación."
 
-+ envio () - sucursal () - pedido ()
++ sucursal (0:N) - transportista (0:N) - pedido (0:1)
 
+
+|       | **Envio**            |   |
+|-------|-------------------|---------|
+| PK    | numeroGuia    |  |
+| FK1,UK| folio   |  |
+| FK2   | claveTransportista | |
+|FK3| numeroCliente
+||costoFlete
+||dia
+||mes
+||año
 
 
 
