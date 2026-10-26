@@ -6,14 +6,7 @@
 del lado muchos. Si la cardinalidad mínima del lado muchos es 1, la clave foránea es NOT NULL; si es 0, admite
 nulos."
 
-+ producto (1:1) - detalle (0:N) 
-
-|       | **Producto**            | 
-|-------|-------------------|
-| PK    | claveProducto     |
-|       | costoUnitarioUSD  |
-|       | precioUnitarioUSD |
-
++ PRODUCTO (1:1) -aparece-  DETALLE (0:N) 
 
 |       | **Detalle**            |   
 |-------|-------------------|
@@ -23,7 +16,7 @@ nulos."
 
 ---
 
-+ pedido (1:1) - detalle (1:N)
++ PEDIDO (1:1) -registra-  DETALLE (1:N)
 
 |       | **Pedido**            |   
 |-------|-------------------|
@@ -36,57 +29,15 @@ nulos."
 
 ---
 
-+ cliente (1:1) - pedido (0:N)
++ CLIENTE (1:1) -realiza- PEDIDO (0:N)
 
-|       | **Cliente**            |   
-|-------|-------------------|
-| PK    | numeroCliente     | 
-|       | razonSocial  |  
-|       | correoCliente | 
-| | telefonoCliente
 
 --- 
 
-+ cliente (1:1) - sucursal (1:N)
-
-|       | **Sucursal**            |  
-|-------|-------------------|
-| PK, FK   | numeroCliente     |  
-| PK      | claveSucursal  |  
-|       | nombrePlanta| 
-| |telefonoEncargado|
-| |CP|
-| | calle
-| |pais|
-|| estado
-||numero
-||ciudad
-
----
-
-+ sucursal (1:1) - envio (0:N)
++ CLIENTE (1:1) -tiene- SUCURSAL (1:N)
 
 
-|       | **Envio**            |   
-|-------|-------------------|
-| PK    | numeroGuia    |  
-| FK1,UK| folio   |  
-| FK2   | claveTransportista | 
-|FK3| numeroCliente
-||costoFlete
-||dia
-||mes
-||año
----
 
-+ envio (0:M) - transportista (1:1)
-
-|       | **Transportista**            |   
-|-------|-------------------|
-| PK    | claveTransportista    |  
-|       | nombreEmpresa  |  
-|       | telefonoAtencion | 
-|| email
 
 
 
@@ -98,79 +49,6 @@ como clave foránea con restricción UNIQUE.
 2. Si ambas son obligatorias, propague la clave de cualquiera de las dos como clave foránea UNIQUE y
 NOT NULL.
 3. Fusione ambas entidades en una sola tabla, solo si tiene sentido desde el significado del problema."
-
-+ cliente (1:1) - clienteNacional (0:1)
-
-
-
-|       | **ClienteNacional**            |   
-|-------|-------------------|
-| PK, FK    | numeroCliente     |  
-|       | RFC  |  
-|       | regimenFiscal | 
-| | estadoOrigen
-
----
-
-+ cliente (1:1) - clienteExportacion (0:1)
-
-|       | **ClienteExportacion**            |   
-|-------|-------------------|
-| PK, FK    | numeroCliente     |  
-|       | idFiscalGlobal |  
-|       | paisReceptor | 
-
----
-
-
-
-+ transportista (1:1) - transportistaNacional (0:1)
-
-|       | **TransportistaNacional**            |   
-|-------|-------------------|
-| PK, FK    | claveTransportista   |  
-|       | RFC  |  
-
-
----
-
-
-+ transportista (1:1) - transportistaInternacional(0:1)
-
-|     | **TransportistaInternacional**            |   
-|-------|-------------------|
-| PK, FK    | claveTransportista     |  
-|       | codigoAduanal|  
-|       | agenciaAduanal | 
-
----
-
-+ producto (1:1) - omnigold (0:1)
-
-|       | **Omnigold**            |   
-|-------|-------------------|
-| PK, FK    | claveProducto     |  
-|       | provMaquinaria |  
-
-
-----
-
-+ producto (1:1) - hyvolt (0:1)
-
-|       | **Hyvolt**            |   
-|-------|-------------------|
-| PK, FK    | claveProducto     |  
-|       | provTransformador  |  
-
-
----
-
-+ producto (1:1) - hyprene (0:1)
-
-|       | **Hyprene**            |   
-|-------|-------------------|
-| PK, FK    | claveProducto   |
-|       | provTransporte   |  
 
 
 
@@ -241,11 +119,59 @@ clave primaria y agrega la clave foránea como NOT NULL."
 ---
 
 + Se hizo una especialización disjunta y total de la entidad PRODUCTO
+    
+    De acuerdo a las estrategias de transformacion para Jerarquias, el mejor caso para PRODUCTO al tener subtipos con pocos atributos, fue hacer una sola tabla con discriminador. 
 
+| **Producto**            | |
+|-------|-------------------|
+| PK    | claveProducto     |
+|       | tipoProducto (discriminador: OMNIGOLD, HYVOLT o HYPRENE)|
+|       | costoUnitarioUSD  |
+|       | precioUnitarioUSD |
+| | provMaquinaria (solo Omnigold)
+| | provTransformador (solo Hyvolt)
+| | provTransporte (solo Hyprene)
+
+Se agrega la columna *tipoProducto* con el discriminador dependiendo de los tres tipos de productos posibles.
 
 
 
 + Se hizo una especialización solapada y total de la entidad TRANSPORTISTA 
+
+     De acuerdo a las estrategias de transformacion para Jerarquias, el mejor caso para TRANSPORTISTA, fue hacer una sola tabla con discriminador. 
+
+|       | **Transportista**            |   
+|-------|-------------------|
+| PK    | claveTransportista    |  
+|       | nombreEmpresa  |  
+|       | telefonoAtencion | 
+|| email
+|| esNacional|
+|| esInternacional
+|| RFC (solo Nacional)|
+||codigoAduanal (solo Internacional)
+||agenciaAduanal (solo Internacional)
+
+
+
++ Se hizo una especialización disjunta y total de la entidad CLIENTE
+    
+    De acuerdo a las estrategias de transformacion para Jerarquias, el mejor caso para CLIENTE al tener subtipos con pocos atributos, fue hacer una sola tabla con discriminador. 
+
+|       | **Cliente**            |   
+|-------|-------------------|
+| PK    | numeroCliente     | 
+|       | razonSocial  |  
+|       | correoCliente | 
+| | telefonoCliente
+|| tipoCliente (discriminador: NACIONAL, EXPORTACION)
+|| RFC (solo Nacional)
+|| regimenFiscal (solo Nacional)
+|| estadoOrigen (solo Nacional)
+|| idFiscalGlobal (solo Exportacion)
+|| paisReceptor (solo Exportacion)
+
+
 
 
 
