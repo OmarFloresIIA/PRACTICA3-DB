@@ -3,20 +3,14 @@ CREATE TABLE cliente (
     razonSocial     VARCHAR(100)   NOT NULL,
     correoCliente   VARCHAR(50)    NOT NULL,
     telefonoCliente VARCHAR(20)    NOT NULL
+    tipoCliente
+    RFC
+    regimenFiscal
+    estadoOrigen
+    idFiscalGlobal
+    paisReceptor
 );
 
-CREATE TABLE clienteNacional (
-    numeroCliente   CHAR(7)       PRIMARY KEY REFERENCES cliente(numeroCliente),
-    rfc             VARCHAR(13)   NOT NULL,
-    regimenFiscal   VARCHAR(100)  NOT NULL,
-    estadoOrigen    CHAR(7)       NOT NULL
-);
-
-CREATE TABLE clienteExportacion (
-    numeroCliente   CHAR(7)       PRIMARY KEY REFERENCES cliente(numeroCliente),
-    idFiscalGlobal  VARCHAR(100)  NOT NULL,
-    paisReceptor    VARCHAR(80)   NOT NULL
-);
 
 CREATE TABLE pedido (
     folio           CHAR(8)     PRIMARY KEY,
@@ -31,19 +25,14 @@ CREATE TABLE transportista (
     claveTransportista      CHAR(5)        PRIMARY KEY,
     nombreEmpresa           VARCHAR(100)   NOT NULL,
     telefonoAtencion        VARCHAR(20),    
-    email                   VARCHAR(50)    
+    email                   VARCHAR(50)   
+    esNacional
+    esInternacional
+    RFC
+    codigoAduanal
+    agenciaAduanal 
 );
 
-CREATE TABLE transportistaInternacional (
-    claveTransportista      CHAR(5)        PRIMARY KEY REFERENCES transportista(claveTransportista),
-    codigoAduanal           VARCHAR(20)    NOT NULL,
-    agenciaAduanal          VARCHAR(100)   NOT NULL
-);
-
-CREATE TABLE transportistaNacional (
-    claveTransportista      CHAR(5)     PRIMARY KEY REFERENCES transportista(claveTransportista),
-    rfc                     VARCHAR(13) NOT NULL
-);
 
 CREATE TABLE sucursal (
     numeroCliente       CHAR(7)         NOT NULL REFERENCES cliente(numeroCliente),
@@ -61,21 +50,14 @@ CREATE TABLE sucursal (
 
 CREATE TABLE producto (
     claveProducto       CHAR(6)         PRIMARY KEY,
+    tipoProducto
     costoUnitarioUSD    DECIMAL(12,3)   NOT NULL,
     precioUnitarioUSD   DECIMAL(12,3)   NOT NULL
+    provMaquinaria      
+    provTransformador
+    provTransporte
 );
 
-CREATE TABLE onmigold (
-    claveProducto       CHAR(6)     PRIMARY KEY REFERENCES producto(claveProducto)
-);
-
-CREATE TABLE hyvolt (
-    claveProducto       CHAR(6)     PRIMARY KEY REFERENCES producto(claveProducto)
-);
-
-CREATE TABLE hyprene (
-    claveProducto       CHAR(6)     PRIMARY KEY REFERENCES producto(claveProducto)
-);
 
 CREATE TABLE detalle (
     folio               CHAR(8)         NOT NULL REFERENCES pedido(folio),
