@@ -39,19 +39,6 @@ nulos."
 
 
 
-
-
-## Relaciones UNO a UNO
-
-"Regla 6. Relaciones uno a uno. Elija entre tres estrategias y justifique la elección:
-1. Si una entidad tiene cardinalidad mínima 0 y la otra 1, propague la clave de la obligatoria a la opcional
-como clave foránea con restricción UNIQUE.
-2. Si ambas son obligatorias, propague la clave de cualquiera de las dos como clave foránea UNIQUE y
-NOT NULL.
-3. Fusione ambas entidades en una sola tabla, solo si tiene sentido desde el significado del problema."
-
-
-
 ## Relaciones de ORDEN SUPERIOR
 
 "Regla 7. Relaciones de orden superior. Las relaciones ternarias o mayores se transforman en una tabla propia
