@@ -8,28 +8,28 @@ nulos."
 
 + producto (1:1) - detalle (0:N) 
 
-|       | **Producto**            |   |
-|-------|-------------------|---------|
-| PK    | claveProducto     |  |
-|       | costoUnitarioUSD  |  |
-|       | precioUnitarioUSD | |
+|       | **Producto**            | 
+|-------|-------------------|
+| PK    | claveProducto     |
+|       | costoUnitarioUSD  |
+|       | precioUnitarioUSD |
 
 
-|       | **Detalle**            |   |
-|-------|-------------------|---------|
-| PK    | folio    |  |
-| PK      | claveParcial  |  |
+|       | **Detalle**            |   
+|-------|-------------------|
+| PK    | folio    |  
+| PK      | claveParcial  |  
 | FK    | claveProducto | 
 
 ---
 
 + pedido (1:1) - detalle (1:N)
 
-|       | **Pedido**            |   |
-|-------|-------------------|---------|
-| PK    | folio   |  |
-| FK      | numeroCliente |  |
-|       | estatus| |
+|       | **Pedido**            |   
+|-------|-------------------|
+| PK    | folio   |  
+| FK      | numeroCliente |  
+|       | estatus| 
 | | dia
 | | mes
 | | año
@@ -38,22 +38,22 @@ nulos."
 
 + cliente (1:1) - pedido (0:N)
 
-|       | **Cliente**            |   |
-|-------|-------------------|---------|
-| PK    | numeroCliente     |  |
-|       | razonSocial  |  |
-|       | correoCliente | |
+|       | **Cliente**            |   
+|-------|-------------------|
+| PK    | numeroCliente     | 
+|       | razonSocial  |  
+|       | correoCliente | 
 | | telefonoCliente
 
 --- 
 
 + cliente (1:1) - sucursal (1:N)
 
-|       | **Sucursal**            |   |
-|-------|-------------------|---------|
-| PK, FK   | numeroCliente     |  |
-| PK      | claveSucursal  |  |
-|       | nombrePlanta| |
+|       | **Sucursal**            |  
+|-------|-------------------|
+| PK, FK   | numeroCliente     |  
+| PK      | claveSucursal  |  
+|       | nombrePlanta| 
 | |telefonoEncargado|
 | |CP|
 | | calle
@@ -67,11 +67,11 @@ nulos."
 + sucursal (1:1) - envio (0:N)
 
 
-|       | **Envio**            |   |
-|-------|-------------------|---------|
-| PK    | numeroGuia    |  |
-| FK1,UK| folio   |  |
-| FK2   | claveTransportista | |
+|       | **Envio**            |   
+|-------|-------------------|
+| PK    | numeroGuia    |  
+| FK1,UK| folio   |  
+| FK2   | claveTransportista | 
 |FK3| numeroCliente
 ||costoFlete
 ||dia
@@ -81,11 +81,11 @@ nulos."
 
 + envio (0:M) - transportista (1:1)
 
-|       | **Transportista**            |   |
-|-------|-------------------|---------|
-| PK    | claveTransportista    |  |
-|       | nombreEmpresa  |  |
-|       | telefonoAtencion | |
+|       | **Transportista**            |   
+|-------|-------------------|
+| PK    | claveTransportista    |  
+|       | nombreEmpresa  |  
+|       | telefonoAtencion | 
 || email
 
 
@@ -101,22 +101,24 @@ NOT NULL.
 
 + cliente (1:1) - clienteNacional (0:1)
 
-|       | **ClienteNacional**            |   |
-|-------|-------------------|---------|
-| PK, FK    | numeroCliente     |  |
-|       | RFC  |  |
-|       | regimenFiscal | |
+
+
+|       | **ClienteNacional**            |   
+|-------|-------------------|
+| PK, FK    | numeroCliente     |  
+|       | RFC  |  
+|       | regimenFiscal | 
 | | estadoOrigen
 
 ---
 
 + cliente (1:1) - clienteExportacion (0:1)
 
-|       | **ClienteExportacion**            |   |
-|-------|-------------------|---------|
-| PK, FK    | numeroCliente     |  |
-|       | idFiscalGlobal |  |
-|       | paisReceptor | |
+|       | **ClienteExportacion**            |   
+|-------|-------------------|
+| PK, FK    | numeroCliente     |  
+|       | idFiscalGlobal |  
+|       | paisReceptor | 
 
 ---
 
@@ -124,10 +126,10 @@ NOT NULL.
 
 + transportista (1:1) - transportistaNacional (0:1)
 
-|       | **TransportistaNacional**            |   |
-|-------|-------------------|---------|
-| PK, FK    | claveTransportista   |  |
-|       | RFC  |  |
+|       | **TransportistaNacional**            |   
+|-------|-------------------|
+| PK, FK    | claveTransportista   |  
+|       | RFC  |  
 
 
 ---
@@ -135,41 +137,41 @@ NOT NULL.
 
 + transportista (1:1) - transportistaInternacional(0:1)
 
-|       | **TransportistaInternacional**            |   |
-|-------|-------------------|---------|
-| PK, FK    | claveTransportista     |  |
-|       | codigoAduanal|  |
-|       | agenciaAduanal | |
+|     | **TransportistaInternacional**            |   
+|-------|-------------------|
+| PK, FK    | claveTransportista     |  
+|       | codigoAduanal|  
+|       | agenciaAduanal | 
 
 ---
 
 + producto (1:1) - omnigold (0:1)
 
-|       | **Omnigold**            |   |
-|-------|-------------------|---------|
-| PK, FK    | claveProducto     |  |
-|       | provMaquinaria |  |
-|       | 
+|       | **Omnigold**            |   
+|-------|-------------------|
+| PK, FK    | claveProducto     |  
+|       | provMaquinaria |  
+
 
 ----
 
 + producto (1:1) - hyvolt (0:1)
 
-|       | **Hyvolt**            |   |
-|-------|-------------------|---------|
-| PK, FK    | claveProducto     |  |
-|       | provTransformador  |  |
-|       | 
+|       | **Hyvolt**            |   
+|-------|-------------------|
+| PK, FK    | claveProducto     |  
+|       | provTransformador  |  
+
 
 ---
 
-+ prodcuto (1:1) - hyprene (0:1)
++ producto (1:1) - hyprene (0:1)
 
-|       | **Hyprene**            |   |
-|-------|-------------------|---------|
-| PK, FK    | claveProducto     |  |
-|       | provTransporte   |  |
-|       | 
+|       | **Hyprene**            |   
+|-------|-------------------|
+| PK, FK    | claveProducto   |
+|       | provTransporte   |  
+
 
 
 ## Relaciones de ORDEN SUPERIOR
@@ -180,18 +182,70 @@ que incluye las claves primarias de todas las entidades participantes, más los 
 + sucursal (0:N) - transportista (0:N) - pedido (0:1)
 
 
-|       | **Envio**            |   |
-|-------|-------------------|---------|
-| PK    | numeroGuia    |  |
-| FK1,UK| folio   |  |
-| FK2   | claveTransportista | |
+|       | **Envio**               |
+|-------|-------------------|
+| PK    | numeroGuia      |
+| FK1,UK| folio   |  
+| FK2   | claveTransportista  |
 |FK3| numeroCliente
 ||costoFlete
 ||dia
 ||mes
 ||año
 
+## Entidades DEBILES 
 
+"Regla 8. Entidades débiles. Si la dependencia es de identificación, la tabla resultante lleva una clave primaria
+compuesta por la clave foránea de la entidad propietaria más el discriminador; la clave foránea es NOT NULL y
+normalmente con ON DELETE CASCADE. Si la dependencia es solo de existencia, la tabla conserva su propia
+clave primaria y agrega la clave foránea como NOT NULL."
+
++ La entidad debil DETALLE tiene dependencia por identificacion y existencia con PEDIDO
+
+|       | **Detalle**            |   
+|-------|-------------------|
+| PK    | folio    |  
+| PK      | claveParcial  |  
+| FK    | claveProducto | 
+| | costoProduccion
+| | precioAplicado
+| | cantidad
+
++ La entidad debil SUCURSAL tiene dependencia de identificacion con CLIENTE 
+
+|       | **Sucursal**            |  
+|-------|-------------------|
+| PK, FK   | numeroCliente     |  
+| PK      | claveSucursal  |  
+|       | nombrePlanta| 
+| |telefonoEncargado|
+| |CP|
+| | calle
+| |pais|
+|| estado
+||numero
+||ciudad
+
+---
+
+## JERARQUIAS
+
+| Estrategia | Ventaja | Desventaja | Cuanto conviene|
+|------------|---------| -----------|----------------|
+|A. Tabla por supertipo y por subtipo| Sin redundancia ni valores nulos | Requiere combinaciones para consultar todo | Subtipos con muchos atributos propios |
+| B. Tabla única con discriminador| Consultas simples y rápidas | Muchos valores nulos | Muchos valores nulos|
+| C. Tabla por subtipo, sin supertipo | No requiere combinaciones | Repite los atributos comunes | Especialización total y disjunta | 
+
+
+
+---
+
++ Se hizo una especialización disjunta y total de la entidad PRODUCTO
+
+
+
+
++ Se hizo una especialización solapada y total de la entidad TRANSPORTISTA 
 
 
 
