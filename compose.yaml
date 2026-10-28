@@ -1,9 +1,9 @@
 services:
   db:
     image: postgres:17
-    container_name: pg-practica1
+    container_name: pg-practica3
     environment:
-      POSTGRES_PASSWORD: practica1
+      POSTGRES_PASSWORD: practica3
     ports:
       - "5434:5432"
     volumes:
