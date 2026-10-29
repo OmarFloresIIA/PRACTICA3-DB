@@ -27,3 +27,4 @@ Almacén dimensional para el monitoreo geoespacial de obra pública.
 
 ## Uso de Inteligencia Artificial
 + Se utilizó la función mostrada por el profesor de enlazar un repositorio de Git Hub con Chat GPT, se enlazó el fork creado con Chat GPT para realizar el ejercicio 7 y 8.
++ Se utilizo "Claude" para corregir errores durante las pruebas de restricciones [Ejercicio 6].
