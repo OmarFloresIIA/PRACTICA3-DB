@@ -4,7 +4,7 @@ CREATE TABLE cliente (
   razonSocial      VARCHAR(150) NOT NULL,
   correoCliente    VARCHAR(100),
   telefonoCliente  VARCHAR(20),
-  tipoCliente      VARCHAR(10)  NOT NULL,         
+  tipoCliente      VARCHAR(20)  NOT NULL,         
   RFC              VARCHAR(13),
   regimenFiscal    VARCHAR(100),
   estadoOrigen     VARCHAR(50),
